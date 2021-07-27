@@ -1,4 +1,12 @@
-Description of an 8 frame history based temporal antialiasing system.
+Description of a N frame history based temporal antialiasing system using a 'pingpong projection check'
+
+Simplified description of the pingpong projection check:
+- pixel position in current frame (pos1) + depth (d1)
+- find world space for pos1 + d1 (ws1) (apply heading matrix to pos1, times d1, sum with cameraposition)
+- find ws1 in history frame (pos2) + depth (d2) (apply history VPM to ws1)
+- find worldspace for pos2 + d2 (ws2) (apply history heading matrix to pos2, times d2, sum with history cameraposition)
+- find ws2 in current frame (pos3) (apply VPM)
+- if pos1 is near pos3 allow contribution
 
 Anti aliasing in 3d rendering is an attempt to avoid artifacts from limited sampling by either gathering more samples or applying post processing.
 
@@ -20,6 +28,7 @@ Then to generate the output we sample the depth of a pixel in the most recent fr
 
 Then for each of the frames take the representative position and resolve to the frame position, discard if outside of clipspace.
 At this frame position read the depth and combine with the frame heading matrix and frame camera position to find the reprojected terrain, find the output buffer position using the viewprojectionmatrix and if it is within clipspace and a 1 pixel radius, have it contribute to the output.
+An accept radius of 1.2 has been suggested as giving better results.
 
 Output depth is the minimum of contributed samples.
 Color is average of contributed samples.
@@ -34,18 +43,12 @@ The initial depth estimate uses an underbound, a range could be established and 
 
 Ideally the whole history frames are forward projected, however this does not currently seem efficient on the gpu.
 
+In my usage i use 8 frames of history.
+
 Downsides:
 
 All rendered frames are jittered, if insufficient samples are gathered, this jitter can show up both as temporal and positional noise and blurryness due to dejittering.
 Does not handle animated textures nor moving elements in a scene.
-
-Pingpong projection check:
-pixel in current frame (px1)
-find world space (ws1)
-find ws1 in history frame (px2)
-find worldspace for px2 (ws2)
-find ws2 in current frame (px3)
-if px1 is near px3 allow contribution
 
 ```hlsl
 float3 BufferHeading(float4x4 headingMatrix, float2 coords) {
