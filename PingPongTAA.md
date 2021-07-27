@@ -14,7 +14,7 @@ When rendering a 3d game at 60 frames a second, there is a large amount of close
 
 What if we take the near duplicated work between frames and use that to increase the number of samples available per pixel, this is called temporal antialiasing.
 
-Render every frame with a jittered offset, going through offsets in a cycle, a good jitter offset is an 8 rooks, an offset used in dx msaa, or a halton sequence.
+Render every frame with a jittered offset, going through offsets in a cycle, a good jitter offset is an 8 queens/rooks, an offset used in dx msaa, or a halton sequence.
 
 If the camera isn't moving and the scene isn't animated, averaging these frames together will output effectively the same as msaa/ssaa
 
