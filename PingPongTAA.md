@@ -50,6 +50,11 @@ Downsides:
 All rendered frames are jittered, if insufficient samples are gathered, this jitter can show up both as temporal and positional noise and blurryness due to dejittering.
 Does not handle animated textures nor moving elements in a scene.
 
+Note:
+
+Depth in this code is the linear worldspace distance from the camera to the hitpoint of the camera ray.
+
+
 ```hlsl
 float3 BufferHeading(float4x4 headingMatrix, float2 coords) {
 	float4 coord = (float4)0;
