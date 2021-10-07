@@ -1,5 +1,10 @@
 Description of a N frame history based temporal antialiasing system using a 'pingpong projection check'
 
+<video preload="metadata" controls class="video">
+    <source src="https://blog.playstaxel.com/taa/withtta.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
 Simplified description of the pingpong projection check:
 - pixel position in current frame (pos1) + depth (d1)
 - find world space for pos1 + d1 (ws1) (apply heading matrix to pos1, times d1, sum with cameraposition)
@@ -144,3 +149,13 @@ void TaaMix(uint3 DTid : SV_DispatchThreadID)
 }
 
 ```
+With PingPongTAA
+<video preload="metadata" controls class="video">
+    <source src="https://blog.playstaxel.com/taa/withtta.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+Without TAA
+<video preload="metadata" controls class="video">
+    <source src="https://blog.playstaxel.com/taa/without.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
