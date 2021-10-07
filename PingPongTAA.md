@@ -1,7 +1,9 @@
 Description of a N frame history based temporal antialiasing system using a 'pingpong projection check'
 
+Left side: with TAA
+Right side: no AA
 <video preload="metadata" controls class="video">
-    <source src="https://blog.playstaxel.com/taa/withtta.mp4" type="video/mp4">
+    <source src="https://blog.playstaxel.com/taa/combined.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
